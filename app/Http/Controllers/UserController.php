@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function index(){
+        $users = UserRepository::allWithPagination();
+
+        return $this->indexResponse($users);
     }
 
     public function store(Request $request){}
