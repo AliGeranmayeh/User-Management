@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\DB\UserRepository;
+use App\Helpers\Response\UserResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    use UserResponse;
     public function index(){
         $users = UserRepository::allWithPagination();
 
