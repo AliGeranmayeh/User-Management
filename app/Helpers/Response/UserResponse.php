@@ -33,6 +33,6 @@ trait UserResponse
 
     private function showResponse($user)
     {
-
+        return $this->successWithData('ok', $user);
     }
 }
