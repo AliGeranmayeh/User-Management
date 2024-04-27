@@ -36,13 +36,19 @@ class User extends Authenticatable
         'password',
     ];
 
-    function setPasswordAttribute($value) {
-        $this->attributes['password'] =Hash::make($value);
+    function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 
 
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function goals()
+    {
+        return $this->hasMany(Goal::class);
     }
 }
