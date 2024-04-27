@@ -25,6 +25,6 @@ class RoleSeeder extends Seeder
             ],
         ];
 
-        Role::create($data);
+        \DB::table('roles')->insert($data);
     }
 }
