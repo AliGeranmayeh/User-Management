@@ -29,4 +29,8 @@ class Goal extends Model
     {
         return $this->hasMany(Task::class);
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }
