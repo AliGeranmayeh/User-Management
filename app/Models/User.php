@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Enums\RoleType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -50,5 +51,10 @@ class User extends Authenticatable
     public function goals()
     {
         return $this->hasMany(Goal::class);
+    }
+
+
+    public function isAdmin() {
+        return $this->role_id == RoleType::ADMIN;
     }
 }
