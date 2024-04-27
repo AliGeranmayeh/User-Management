@@ -29,8 +29,11 @@ class UserController extends Controller
         return $this->showResponse($this->userWithGoals($user));
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
+        $isDeleted = UserRepository::delete($user);
+
+        $this->destroyResponse($isDeleted);
     }
 
     public function update(Request $request)

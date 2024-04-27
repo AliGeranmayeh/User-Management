@@ -18,15 +18,26 @@ class UserRepository
 
         return User::query()
             ->where(function ($query) use ($data) {
-            foreach ($data as $key => $value) {
-                $query->where($key, $value);
-            }
-        })
-            ->first()??null;
+                foreach ($data as $key => $value) {
+                    $query->where($key, $value);
+                }
+            })
+            ->first() ?? null;
 
     }
 
-    public static function allWithPagination(int $paginate = 10){
+    public static function allWithPagination(int $paginate = 10)
+    {
         return User::query()->paginate($paginate);
+    }
+
+    public static function delete(User $user)
+    {
+        try {
+            $user->delete();
+        } catch (\Throwable $th) {
+            return false;
+        }
+        return true;
     }
 }

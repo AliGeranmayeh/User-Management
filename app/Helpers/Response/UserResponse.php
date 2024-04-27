@@ -21,16 +21,17 @@ trait UserResponse
             $this->failure('something went wrong', Response::HTTP_BAD_REQUEST);
     }
 
-    private function updateResponse($user, $data)
+    private function updateResponse($user, $isUpdatedFlag)
     {
-
+        return $isUpdatedFlag ? $this->successWithData('user has been updated', $user, Response::HTTP_OK) :
+            $this->failure('something went wrong', Response::HTTP_BAD_REQUEST);
     }
 
-    private function destroyResponse()
+    private function destroyResponse($isDeletedFlag)
     {
-
+        return $isDeletedFlag ? $this->success('user has been deleted successfully') :
+            $this->failure("user hasn't been deleted");
     }
-
     private function showResponse($user)
     {
         return $this->successWithData('ok', $user);
