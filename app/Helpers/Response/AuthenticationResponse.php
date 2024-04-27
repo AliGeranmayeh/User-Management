@@ -24,8 +24,7 @@ trait AuthenticationResponse
                 'Ok',
                 [
                     'access_token' => auth()->user()->createToken('API Token')->plainTextToken
-                ],
-                Response::HTTP_OK
+                ]
             ) :
             $this->failure('Invalid Credentials', Response::HTTP_UNAUTHORIZED);
     }
@@ -34,7 +33,7 @@ trait AuthenticationResponse
     private function logoutResponse(bool $loggedOutnFlag)
     {
         return $loggedOutnFlag ?
-            $this->success('You have been successfully logged out', Response::HTTP_OK) :
+            $this->success('You have been successfully logged out') :
             $this->failure('Failed to logout user', Response::HTTP_BAD_REQUEST);
     }
 }

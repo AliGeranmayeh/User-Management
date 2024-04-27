@@ -10,23 +10,29 @@ trait UserResponse
 {
     use ApiResponse;
 
-    private function indexResponse($users) {
-       return $this->successWithData('ok', $users , Response::HTTP_OK);
+    private function indexResponse($users)
+    {
+        return $this->successWithData('ok', $users);
     }
 
-    private function storeResponse($user) {
+    private function storeResponse($user)
+    {
+        return $user ? $this->successWithData('user has been created', $user, Response::HTTP_CREATED) :
+            $this->failure('something went wrong', Response::HTTP_BAD_REQUEST);
+    }
+
+    private function updateResponse($user, $data)
+    {
 
     }
 
-    private function updateResponse($user , $data) {
+    private function destroyResponse()
+    {
 
     }
 
-    private function destroyResponse() {
-
-    }
-
-    private function showResponse($user) {
+    private function showResponse($user)
+    {
 
     }
 }
