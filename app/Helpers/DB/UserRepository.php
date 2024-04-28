@@ -22,6 +22,7 @@ class UserRepository
                     $query->where($key, $value);
                 }
             })
+            ->with("goals")
             ->first() ?? null;
 
     }
@@ -50,4 +51,10 @@ class UserRepository
         }
         return [$user,true];
     }
+
+    public static function userWithGoals(User $user){
+        return $user->with('goals')->get();
+    }
+
+    
 }

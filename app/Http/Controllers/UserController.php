@@ -25,9 +25,9 @@ class UserController extends Controller
 
         return $this->storeResponse($user);
     }
-    public function show(User $user)
+    public function show(int $id)
     {
-        return $this->showResponse($this->userWithGoals($user));
+        return $this->showResponse(UserRepository::find(['id' => $id]));
     }
 
     public function destroy(User $user)
