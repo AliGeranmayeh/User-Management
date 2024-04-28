@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticationController;
 use App\Http\Controllers\GoalController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('users/{user}/goals', [GoalController::class, 'store'])->name('goal.store');
             Route::patch('users/{user}/goals/{goal}', [GoalController::class, 'update'])->name('goal.update');
             Route::delete('users/{user}/goals/{goal}', [GoalController::class, 'delete'])->name('goal.delete');
+
+            Route::get('users/{user}/yasks/{task}', [TaskController::class, 'show'])->name('task.show');
+            Route::post('users/{user}/tasks', [TaskController::class, 'store'])->name('task.store');
+            Route::patch('users/{user}/tasks/{task}', [TaskController::class, 'update'])->name('task.update');
+            Route::delete('users/{user}/tasks/{task}', [TaskController::class, 'delete'])->name('task.delete');
         });
     });
 
