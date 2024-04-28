@@ -19,9 +19,9 @@ class CreateGoalsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('end_date')->nullable();
             $table->dateTime('do_date');
-            $table->integer('point');
+            $table->integer('point')->nullable();
             $table->timestamps();
         });
     }

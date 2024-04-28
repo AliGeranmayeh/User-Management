@@ -24,18 +24,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [AuthenticationController::class, 'logout'])->name('logout');
 
     Route::middleware(['admin.check'])->group(function () {
-        Route::get('users', [UserController::class,'index'])->name('users.index');
-        Route::post('users', [UserController::class,'store'])->name('users.store');
-        Route::patch('users/{user}', [UserController::class,'update'])->name('users.update');
-        Route::delete('users/{user}', [UserController::class,'destroy'])->name('users.destroy');
-        Route::get('users/{id}', [UserController::class,'show'])->name('users.show');
+        Route::get('users', [UserController::class, 'index'])->name('users.index');
+        Route::post('users', [UserController::class, 'store'])->name('users.store');
+        Route::patch('users/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+        Route::get('users/{id}', [UserController::class, 'show'])->name('users.show');
 
 
-
-        Route::get('users/{user}/goals/{goal}', [GoalController::class,''])->name('goal.show');
-        Route::post('users/{user}/goals/', [GoalController::class,''])->name('goal.store');
-        Route::patch('users/{user}/goals/{goal}', [GoalController::class,''])->name('goal.update');
-        Route::delete('users/{user}/goals/{goal}', [GoalController::class,''])->name('goal.delete');
+        Route::middleware(['ownership.check'])->group(function () {
+            Route::get('users/{user}/goals/{goal}', [GoalController::class, 'show'])->name('goal.show');
+            Route::post('users/{user}/goals', [GoalController::class, 'store'])->name('goal.store');
+            Route::patch('users/{user}/goals/{goal}', [GoalController::class, 'update'])->name('goal.update');
+            Route::delete('users/{user}/goals/{goal}', [GoalController::class, 'delete'])->name('goal.delete');
+        });
     });
 
 
