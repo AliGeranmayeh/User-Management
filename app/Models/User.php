@@ -42,6 +42,11 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
+    function getImageAttribute($value)
+    {
+        return $value ? asset('storage/'.$value):null;
+    }
+
 
     public function role()
     {
@@ -54,7 +59,8 @@ class User extends Authenticatable
     }
 
 
-    public function isAdmin() {
+    public function isAdmin()
+    {
         return $this->role_id == RoleType::ADMIN;
     }
 }
