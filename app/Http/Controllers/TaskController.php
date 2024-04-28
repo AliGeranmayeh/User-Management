@@ -13,7 +13,7 @@ class TaskController extends Controller
 {
     use TaskResponse;
 
-    public function show( Task $task)
+    public function show(Task $task)
     {
         return $this->showResponse($task);
     }
@@ -24,7 +24,7 @@ class TaskController extends Controller
         return $this->storeResponse($task);
     }
 
-    public function update(UpdateTaskRequest $request, Task $task )
+    public function update(UpdateTaskRequest $request, Task $task)
     {
         [$task, $isUpdatedFlag] = TaskRepository::update($task, $request->validated());
         return $this->updateResponse($task, $isUpdatedFlag);

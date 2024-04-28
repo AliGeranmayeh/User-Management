@@ -23,16 +23,14 @@ class UserRepository
 
     public static function find(array $data)
     {
-
         return User::query()
             ->where(function ($query) use ($data) {
                 foreach ($data as $key => $value) {
                     $query->where($key, $value);
                 }
             })
-            ->with("goals,tasks")
+            ->with("goals")
             ->first() ?? null;
-
     }
 
     public static function allWithPagination(int $paginate = 10)
@@ -58,15 +56,5 @@ class UserRepository
             return [null, false];
         }
         return [$user, true];
-    }
-
-    public static function userWithGoals(User $user)
-    {
-        return $user->with('goals')->get();
-    }
-
-    private static function saveImage(string $image)
-    {
-
     }
 }

@@ -14,7 +14,7 @@ class GoalController extends Controller
 {
     use GoalResponse;
 
-    public function show( Goal $goal)
+    public function show(int $id)
     {
         return $this->showResponse($goal);
     }
