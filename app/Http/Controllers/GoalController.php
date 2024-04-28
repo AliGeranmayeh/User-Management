@@ -14,18 +14,18 @@ class GoalController extends Controller
 {
     use GoalResponse;
 
-    public function show(User $user, Goal $goal)
+    public function show( Goal $goal)
     {
-        dd('nothing');
+        return $this->showResponse($goal);
     }
 
-    public function store(CreateGoalRequest $request, User $user)
+    public function store(CreateGoalRequest $request)
     {
         $goal = GoalRepository::create($request);
         return $this->storeResponse($goal);
     }
 
-    public function update(UpdateGoalRequest $request, Goal $goal , User $user)
+    public function update(UpdateGoalRequest $request, Goal $goal )
     {
         [$goal, $isUpdatedFlag] = GoalRepository::update($goal, $request->validated());
         return $this->updateResponse($goal, $isUpdatedFlag);

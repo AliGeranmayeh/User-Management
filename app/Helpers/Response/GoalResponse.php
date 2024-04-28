@@ -27,4 +27,9 @@ trait GoalResponse
         return $isDeletedFlag ? $this->success('goal has been deleted successfully') :
             $this->failure("goal hasn't been deleted");
     }
+
+    private function showResponse($goal)
+    {
+        return $this->successWithData('ok', $goal);
+    }
 }

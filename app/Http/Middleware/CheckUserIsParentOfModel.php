@@ -20,13 +20,16 @@ class CheckUserIsParentOfModel
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = $request->route('user');
+        $user = UserRepository::find(['id' => $request->route('user')]);
 
         $routeParameters = $request->route()->parameters();
 
         $secondParameter = collect($routeParameters)->keys()->get(1);
 
         $model = $routeParameters[$secondParameter];
+        if (is_numeric($model) || is_null($user)) {
+            return $this->failure('Invalid User', Response::HTTP_NOT_FOUND);
+        }
 
         if ($model && $user->id !== $model->user_id) {
             return $this->failure('You do not have access to this object', Response::HTTP_FORBIDDEN);
