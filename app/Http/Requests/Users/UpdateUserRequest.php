@@ -13,7 +13,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['string' , 'min:3'],
+            'email' => [ 'email' , 'unique:users,email'],
+            'password' => ['string', 'confirmed', 'min:8'],
+            'personal_code' => ['integer'],
+            'image' => ['mimes:png,jpg,jpeg'],
+            // 'role_id' => ['required','in:'.RoleType::ADMIN.','.RoleType::EMPLOYEE]
         ];
     }
 }

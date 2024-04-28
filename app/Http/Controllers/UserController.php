@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\DB\UserRepository;
 use App\Helpers\Response\UserResponse;
 use App\Http\Requests\Users\CreateUserRequest;
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -36,10 +37,12 @@ class UserController extends Controller
         $this->destroyResponse($isDeleted);
     }
 
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request, User $user)
     {
-    }
+        [$user, $isUpdated] = UserRepository::update($user, $request->validated());
 
+        return $this->updateResponse($user, $isUpdated);
+    }
 
     private function userWithGoals(User $user)
     {

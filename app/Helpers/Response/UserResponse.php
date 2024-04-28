@@ -21,7 +21,7 @@ trait UserResponse
             $this->failure('something went wrong', Response::HTTP_BAD_REQUEST);
     }
 
-    private function updateResponse($user, $isUpdatedFlag)
+    private function updateResponse($user, bool $isUpdatedFlag)
     {
         return $isUpdatedFlag ? $this->successWithData('user has been updated', $user, Response::HTTP_OK) :
             $this->failure('something went wrong', Response::HTTP_BAD_REQUEST);

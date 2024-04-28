@@ -40,4 +40,14 @@ class UserRepository
         }
         return true;
     }
+
+    public static function update(User $user, array $data)
+    {
+        try {
+            $user->update($data);
+        } catch (\Throwable $th) {
+            return [null,false];
+        }
+        return [$user,true];
+    }
 }
