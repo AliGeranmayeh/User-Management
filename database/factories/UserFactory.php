@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Helpers\Enums\RoleType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -17,9 +18,11 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => 'password',
             'remember_token' => Str::random(10),
+            'personal_code' => $this->faker->unique()->numberBetween(1,99999999),
+            'image' => storage_path('profile/default.jpg'),
+            'role_id' => RoleType::EMPLOYEE
         ];
     }
 
