@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticationController;
+use App\Http\Controllers\GoalController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::patch('users/{user}', [UserController::class,'update'])->name('users.update');
         Route::delete('users/{user}', [UserController::class,'destroy'])->name('users.destroy');
         Route::get('users/{id}', [UserController::class,'show'])->name('users.show');
+
+
+
+        Route::get('users/{user}/goals/{goal}', [GoalController::class,''])->name('goal.show');
+        Route::post('users/{user}/goals/', [GoalController::class,''])->name('goal.store');
+        Route::patch('users/{user}/goals/{goal}', [GoalController::class,''])->name('goal.update');
+        Route::delete('users/{user}/goals/{goal}', [GoalController::class,''])->name('goal.delete');
     });
+
 
 });
