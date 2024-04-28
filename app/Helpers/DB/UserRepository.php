@@ -30,7 +30,7 @@ class UserRepository
                     $query->where($key, $value);
                 }
             })
-            ->with("goals")
+            ->with("goals,tasks")
             ->first() ?? null;
 
     }
