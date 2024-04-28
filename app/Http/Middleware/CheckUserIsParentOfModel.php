@@ -26,8 +26,9 @@ class CheckUserIsParentOfModel
 
         $secondParameter = collect($routeParameters)->keys()->get(1);
 
-        $model = $routeParameters[$secondParameter];
-        if (is_numeric($model) || is_null($user)) {
+        $model = $this->findOrFail($secondParameter, $routeParameters[$secondParameter]);
+
+        if (is_null($user)) {
             return $this->failure('Invalid User', Response::HTTP_NOT_FOUND);
         }
 
@@ -36,6 +37,13 @@ class CheckUserIsParentOfModel
         }
 
         return $next($request);
+    }
+
+    private function findOrFail($modelName , $id)
+    {
+        $model = "App\\Models\\$modelName";
+
+        return $model::findOrFail($id);
     }
 
 }

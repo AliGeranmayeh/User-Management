@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Goal;
+namespace App\Http\Requests\Review;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\User;
+use App\Helpers\Enums\ReviewQuality;
 
-class CreateGoalRequest extends FormRequest
+class CreateReviewRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,19 +25,18 @@ class CreateGoalRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'min:3'],
-            'description' => ['required', 'string', 'min:10'],
-            'start_date' => ['required', 'date'],
-            'do_date' => ['required', 'date', 'after_or_equal:start_date'],
+            'description' => ['required', 'string'],
+            "question"=> ['required', 'string'],,
+            "result_quality" => ['required', 'string' , 'in:'.ReviewQuality::PERFECT. ',' .ReviewQuality::OK. ',' .ReviewQuality::GOOD. ',' .ReviewQuality::BAD],
+            'result_point' => ['required' , 'integer','in:1,2,3,4,5']
         ];
     }
 
     public function withValidator($validator)
     {
-        User::findOrFail($this->route('user'));
         $validator->after(function ($validator) {
             $this->merge([
-                'user_id' => $this->route('user'),
+                'goal_id' => $this->route('goal'),
             ]);
         });
     }

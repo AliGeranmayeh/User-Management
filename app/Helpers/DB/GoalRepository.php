@@ -47,7 +47,7 @@ class GoalRepository
                     $query->where($key, $value);
                 }
             })
-            ->with("tasks,reviews")
+            ->with("tasks","reviews")
             ->first() ?? null;
     }
 }

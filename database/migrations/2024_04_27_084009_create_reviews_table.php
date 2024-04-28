@@ -18,8 +18,8 @@ class CreateReviewsTable extends Migration
             $table->foreignId('goal_id')->constrained('goals')->cascadeOnDelete();
             $table->string('question');
             $table->text('description');
-            $table->integer('weight');
-            $table->string('result');
+            $table->integer('result_point');
+            $table->string('result_quality');
             $table->timestamps();
         });
     }

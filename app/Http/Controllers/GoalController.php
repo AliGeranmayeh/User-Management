@@ -16,7 +16,7 @@ class GoalController extends Controller
 
     public function show(int $id)
     {
-        return $this->showResponse($goal);
+        return $this->showResponse(GoalRepository::find(['id' =>$id]));
     }
 
     public function store(CreateGoalRequest $request)
@@ -25,8 +25,9 @@ class GoalController extends Controller
         return $this->storeResponse($goal);
     }
 
-    public function update(UpdateGoalRequest $request, Goal $goal )
+    public function update(UpdateGoalRequest $request,  $goal)
     {
+        $goal = GoalRepository::find(['id' => $goal]);
         [$goal, $isUpdatedFlag] = GoalRepository::update($goal, $request->validated());
         return $this->updateResponse($goal, $isUpdatedFlag);
     }

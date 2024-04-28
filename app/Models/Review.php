@@ -13,7 +13,8 @@ class Review extends Model
         "goal_id",
         "description",
         "question",
-        "result",
+        "result_point",
+        "result_quality"
     ];
 
     public function goal()
