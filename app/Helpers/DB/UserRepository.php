@@ -3,14 +3,22 @@
 
 namespace App\Helpers\DB;
 
+use App\Helpers\Enums\RoleType;
 use App\Models\User;
 
 class UserRepository
 {
 
-    public static function create(array $data)
+    public static function create($data)
     {
-        return User::create($data) ?? null;
+        return User::create([
+            "name" => $data->name,
+            "email" => $data->email,
+            "password" => $data->password,
+            "personal_code" => $data->personal_code,
+            "image" => $data->image,
+            "role_id" => RoleType::EMPLOYEE,
+        ]) ?? null;
     }
 
     public static function find(array $data)
@@ -47,14 +55,18 @@ class UserRepository
         try {
             $user->update($data);
         } catch (\Throwable $th) {
-            return [null,false];
+            return [null, false];
         }
-        return [$user,true];
+        return [$user, true];
     }
 
-    public static function userWithGoals(User $user){
+    public static function userWithGoals(User $user)
+    {
         return $user->with('goals')->get();
     }
 
-    
+    private static function saveImage(string $image)
+    {
+
+    }
 }

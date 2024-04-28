@@ -25,12 +25,28 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string' , 'min:3'],
-            'email' => ['required' , 'email' , 'unique:users,email'],
-            'password' => ['required' , 'string', 'confirmed', 'min:8'],
-            'personal_code' => ['required' , 'integer'],
-            'image' => ['required' ,'mimes:png,jpg,jpeg'],
+            'name' => ['required', 'string', 'min:3'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'string', 'confirmed', 'min:8'],
+            'personal_code' => ['required', 'integer'],
+            'image' => ['required', 'mimes:png,jpg,jpeg'],
             // 'role_id' => ['required','in:'.RoleType::ADMIN.','.RoleType::EMPLOYEE]
         ];
+
+    }
+
+    protected function passedValidation()
+    {
+        $user = auth()->user();
+
+        $image = $this->file('image');
+
+        $fileName = $user->id . '_' . time() . '.' . $image->getClientOriginalExtension();
+
+        // Store the uploaded image in the destination directory
+        $image->storeAs("public/profile/{$user->id}", $fileName);
+
+        $this->image = "profile/{$user->id}/{$fileName}";
+
     }
 }

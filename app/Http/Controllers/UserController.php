@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function store(CreateUserRequest $request)
     {
-        $user = UserRepository::create($request->validated());
+        $user = UserRepository::create($request);
 
         return $this->storeResponse($user);
     }
@@ -39,13 +39,23 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        [$user, $isUpdated] = UserRepository::update($user, $request->validated());
+        $data = $this->prepareData($request);
+        [$user, $isUpdated] = UserRepository::update($user, $data);
 
         return $this->updateResponse($user, $isUpdated);
     }
 
-    private function userWithGoals(User $user)
+    private function prepareData($data)
     {
-        return $user->goals;
+        if ($data->has('image')) {
+            $imagePath = $data->image;
+        }
+        $validatedData = $data->validated();
+
+        if ($data->has('image')) {
+            $validatedData['image'] = $imagePath;
+        }
+        return $validatedData;
     }
+
 }
