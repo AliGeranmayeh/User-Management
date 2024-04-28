@@ -21,7 +21,7 @@ class UserFactory extends Factory
             'password' => 'password',
             'remember_token' => Str::random(10),
             'personal_code' => $this->faker->unique()->numberBetween(1,99999999),
-            'image' => storage_path('profile/default.jpg'),
+            'image' => 'profile/default.jpg',
             'role_id' => RoleType::EMPLOYEE
         ];
     }
