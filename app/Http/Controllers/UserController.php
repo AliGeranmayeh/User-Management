@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\DB\UserRepository;
 use App\Helpers\Response\UserResponse;
+use App\Http\Requests\User\IndexUserRequest;
 use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\Models\User;
@@ -12,9 +13,9 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     use UserResponse;
-    public function index()
+    public function index(IndexUserRequest $request)
     {
-        $users = UserRepository::allWithPagination();
+        $users = UserRepository::allWithPagination($request->paginate);
 
         return $this->indexResponse($users);
     }

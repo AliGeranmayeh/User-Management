@@ -33,7 +33,7 @@ class UserRepository
             ->first() ?? null;
     }
 
-    public static function allWithPagination(int $paginate = 10)
+    public static function allWithPagination(int $paginate = 20)
     {
         return User::query()->paginate($paginate);
     }

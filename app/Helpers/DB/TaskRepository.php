@@ -42,4 +42,9 @@ class TaskRepository
         }
         return true;
     }
+
+    public static function allWithPagination(int $paginate = 20)
+    {
+        return Task::query()->paginate($paginate);
+    }
 }

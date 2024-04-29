@@ -5,13 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Helpers\DB\ReviewRepository;
+use App\Helpers\DB\TaskRepository;
 use App\Http\Requests\Review\CreateReviewRequest;
 use App\Http\Requests\Review\UpdateReviewRequest;
 use App\Helpers\Response\ReviewResponse;
+use App\Http\Requests\Review\IndexReviewRequest;
 
 class ReviewController extends Controller
 {
     use ReviewResponse;
+
+
+    public function index(IndexReviewRequest $request)
+    {
+        $users = TaskRepository::allWithPagination($request->paginate);
+
+        return $this->indexResponse($users);
+    }
     public function show(Review $review)
     {
         return $this->showResponse($review);

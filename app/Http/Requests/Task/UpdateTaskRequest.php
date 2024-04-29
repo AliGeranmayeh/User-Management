@@ -26,8 +26,8 @@ class UpdateTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['string'],
-            'description' => ['string'],
+            'title' => ['string',,'min:3'],
+            'description' => ['string',,'min:10'],
             'weight' => ['integer', 'in:' . TaskWeight::CRITICAL . ',' . TaskWeight::HIGH . ',' . TaskWeight::LOW . ',' . TaskWeight::MEDIUM . ',' . TaskWeight::MINIMAL],
             'status' => ['integer', 'in:' . TaskStatus::FINISHED . ',' . TaskStatus::IN_PROGRESS . ',' . TaskStatus::PENDING . ',' . TaskStatus::STOP]
         ];

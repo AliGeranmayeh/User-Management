@@ -25,8 +25,8 @@ class CreateTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string'],
-            'description' => ['required', 'string'],
+            'title' => ['required', 'string' ,'min:3'],
+            'description' => ['required', 'string','min:10'],
             'weight' => ['required', 'integer', 'in:' . TaskWeight::CRITICAL . ',' . TaskWeight::HIGH . ',' . TaskWeight::LOW . ',' . TaskWeight::MEDIUM . ',' . TaskWeight::MINIMAL],
         ];
 

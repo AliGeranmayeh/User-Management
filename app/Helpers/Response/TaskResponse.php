@@ -9,6 +9,12 @@ trait TaskResponse
 {
     use ApiResponse;
 
+
+    private function indexResponse($tasks)
+    {
+        return $this->successWithData('ok', $tasks);
+    }
+
     private function storeResponse($task)
     {
         return $task ? $this->successWithData('task has been created', $task, Response::HTTP_CREATED) :

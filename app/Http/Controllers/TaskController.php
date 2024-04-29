@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\DB\TaskRepository;
 use App\Helpers\Response\TaskResponse;
 use App\Http\Requests\Task\CreateTaskRequest;
+use App\Http\Requests\Task\IndexTaskRequest;
 use App\Http\Requests\Task\UpdateTaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -12,6 +13,13 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     use TaskResponse;
+
+    public function index(IndexTaskRequest $request)
+    {
+        $users = TaskRepository::allWithPagination($request->paginate);
+
+        return $this->indexResponse($users);
+    }
 
     public function show(Task $task)
     {

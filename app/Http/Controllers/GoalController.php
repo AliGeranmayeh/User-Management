@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\DB\GoalRepository;
 use App\Helpers\Response\GoalResponse;
 use App\Http\Requests\Goal\CreateGoalRequest;
+use App\Http\Requests\Goal\IndexGoalRequest;
 use App\Http\Requests\Goal\UpdateGoalRequest;
 use App\Models\Goal;
 use App\Models\User;
@@ -14,6 +15,13 @@ class GoalController extends Controller
 {
     use GoalResponse;
 
+
+    public function index(IndexGoalRequest $request)
+    {
+        $users = GoalRepository::allWithPagination($request->paginate);
+
+        return $this->indexResponse($users);
+    }
     public function show(int $id)
     {
         return $this->showResponse(GoalRepository::find(['id' =>$id]));

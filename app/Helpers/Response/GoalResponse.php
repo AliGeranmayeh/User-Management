@@ -10,6 +10,10 @@ trait GoalResponse
 {
     use ApiResponse;
 
+    private function indexResponse($goals)
+    {
+        return $this->successWithData('ok', $goals);
+    }
     private function storeResponse($goal)
     {
         return $goal ? $this->successWithData('goal has been created', $goal, Response::HTTP_CREATED) :

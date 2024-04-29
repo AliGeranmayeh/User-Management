@@ -47,7 +47,12 @@ class GoalRepository
                     $query->where($key, $value);
                 }
             })
-            ->with("tasks","reviews")
+            ->with("tasks", "reviews")
             ->first() ?? null;
+    }
+
+    public static function allWithPagination(int $paginate = 20)
+    {
+        return Goal::query()->paginate($paginate);
     }
 }
