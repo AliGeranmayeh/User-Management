@@ -26,6 +26,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('users/{id}', [UserController::class, 'show'])->name('users.show');
 
 
+            Route::get('users/{user}/goals', [GoalController::class, 'index'])->name('goal.index');
             Route::post('users/{user}/goals', [GoalController::class, 'store'])->name('goal.store');
             Route::middleware(['user.ownership'])->group(
                 function () {
