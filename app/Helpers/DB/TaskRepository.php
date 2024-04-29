@@ -47,4 +47,11 @@ class TaskRepository
     {
         return Task::query()->paginate($paginate);
     }
+
+    public static function search($pagination = 20, $status = null) {
+        return Task::query()->when($status,
+            fn($query) =>
+                $query->where("status", $status))
+            ->paginate($pagination);
+    }
 }

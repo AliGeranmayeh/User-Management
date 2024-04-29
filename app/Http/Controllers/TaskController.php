@@ -16,9 +16,9 @@ class TaskController extends Controller
 
     public function index(IndexTaskRequest $request)
     {
-        $users = TaskRepository::allWithPagination($request->paginate);
+        $tasks = $this->handleIndexData($request);
 
-        return $this->indexResponse($users);
+        return $this->indexResponse($tasks);
     }
 
     public function show(Task $task)
@@ -43,5 +43,10 @@ class TaskController extends Controller
         $isDeleted = TaskRepository::delete($task);
 
         $this->destroyResponse($isDeleted);
+    }
+
+    private function handleIndexData($data)
+    {
+        return TaskRepository::search($data->paginate, $data->status ?? null);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Task;
 
+use App\Helpers\Enums\TaskStatus;
 use Illuminate\Foundation\Http\FormRequest;
 
 class IndexTaskRequest extends FormRequest
@@ -24,7 +25,8 @@ class IndexTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'paginate' => ['required', 'integer', 'in:20,30,50,100']
+            'paginate' => ['required', 'integer', 'in:20,30,50,100'],
+            'status' => ['integer', 'in:' . TaskStatus::FINISHED . ',' . TaskStatus::IN_PROGRESS . ',' . TaskStatus::PENDING . ',' . TaskStatus::STOP]
         ];
     }
 }
