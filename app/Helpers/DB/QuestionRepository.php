@@ -21,10 +21,10 @@ class QuestionRepository
     {
         return QuestionBank::query()
             ->where(function ($query) use ($data) {
-            foreach ($data as $key => $value) {
-                $query->where($key, $value);
-            }
-        })
+                foreach ($data as $key => $value) {
+                    $query->where($key, $value);
+                }
+            })
             ->first() ?? null;
     }
 
@@ -37,8 +37,7 @@ class QuestionRepository
     {
         try {
             $question->delete();
-        }
-        catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             return false;
         }
         return true;
@@ -48,10 +47,16 @@ class QuestionRepository
     {
         try {
             $question->update($data);
-        }
-        catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             return [null, false];
         }
         return [$question, true];
+    }
+
+    public static function search($paginate = null, $question = null)
+    {
+        return ($question && !$paginate) ?
+            QuestionBank::where('question', 'LIKE', "%$question%")->limit(5)->get() :
+            QuestionBank::query()->paginate($paginate ?? 20);
     }
 }

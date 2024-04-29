@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DB\QuestionRepository;
 use App\Models\QuestionBank;
 use Illuminate\Http\Request;
-use App\Helpers\DB\QuestionRepository;
 use App\Http\Requests\Question\CreateQuestionRequest;
 use App\Http\Requests\Question\UpdateQuestionRequest;
 use App\Helpers\Response\QuestionResponse;
+use App\Http\Requests\Question\IndexQuestionRequest;
 
 class QuestionBankController extends Controller
 {
     use QuestionResponse;
-    public function index()
+    public function index(IndexQuestionRequest $request)
     {
-        $questions = QuestionRepository::allWithPagination();
+        $questions = $this->handleIndexData($request);
 
         return $this->indexResponse($questions);
     }
@@ -42,5 +43,10 @@ class QuestionBankController extends Controller
         [$question, $isUpdated] = QuestionRepository::update($question,$request->validated());
 
         return $this->updateResponse($question, $isUpdated);
+    }
+
+    private function handleIndexData($data)
+    {
+        return QuestionRepository::search($data->paginate, $data->question ?? null);
     }
 }
