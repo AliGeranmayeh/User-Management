@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('weight')->default(0);
-            $table->string('status');
+            $table->integer('status');
             $table->foreignId('goal_id')->constrained('goals')->cascadeOnDelete();
             $table->timestamps();
         });
