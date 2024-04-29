@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             AdminSeeder::class,
             UserSeeder::class,
+            // GoalSeeder::class,
+            // TaskSeeder::class,
+            // ReviewSeeder::class,
+            // QuestionBankSeeder::class,
         ]);
     }
 }

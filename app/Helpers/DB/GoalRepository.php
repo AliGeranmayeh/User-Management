@@ -9,6 +9,18 @@ class GoalRepository
 
     public static function create($data)
     {
+        // try {
+        //     $goal = new Goal();
+        //     $goal->title = $data->title;
+        //     $goal->description = $data->description;
+        //     $goal->start_date = $data->start_date;
+        //     $goal->do_date = $data->do_date;
+        //     $goal->user_id = $data->user_id;
+        //     $goal->save();
+        // } catch (\Throwable $th) {
+        //     return null;
+        // }
+        // return $goal;
         return Goal::create([
             'title' => $data->title,
             'description' => $data->description,
