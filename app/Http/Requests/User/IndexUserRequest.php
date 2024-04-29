@@ -24,7 +24,11 @@ class IndexUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'paginate' => ['required', 'integer', 'in:20,30,50,100']
+            'paginate' => ['required', 'integer', 'in:20,30,50,100'],
+            'personal_code' => ['integer'],
+            'name' => ['string'],
+            'email'=> ['email'],
+            'order' => ['string', 'in:name,personal_code'] ,
         ];
     }
 }

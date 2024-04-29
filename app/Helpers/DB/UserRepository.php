@@ -57,4 +57,18 @@ class UserRepository
         }
         return [$user, true];
     }
+
+
+    public static function search($pagination = 20, $name = null, $personalCode = null , $order = null) {
+        return User::query()->when($personalCode,
+            fn($query) =>
+                $query->where("personal_code", $personalCode))
+            ->when($name,
+            fn($query) =>
+                $query->where("name", 'LIKE',"%$name%"))
+            ->when($order,
+                fn($query) =>
+                    $query->orderBy($order))
+            ->paginate($pagination);
+    }
 }

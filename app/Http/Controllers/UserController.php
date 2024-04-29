@@ -15,7 +15,7 @@ class UserController extends Controller
     use UserResponse;
     public function index(IndexUserRequest $request)
     {
-        $users = UserRepository::allWithPagination($request->paginate);
+        $users =  $this->handleIndexData($request);
 
         return $this->indexResponse($users);
     }
@@ -57,6 +57,10 @@ class UserController extends Controller
             $validatedData['image'] = $imagePath;
         }
         return $validatedData;
+    }
+
+    private function handleIndexData($data){
+        return UserRepository::search($data->paginate ,$data->name ??null , $data->personal_code??null , $data->order);
     }
 
 }
