@@ -18,9 +18,9 @@ class GoalController extends Controller
 
     public function index(IndexGoalRequest $request)
     {
-        $users = GoalRepository::allWithPagination($request->paginate);
+        $goals = $this->handleIndexData($request);
 
-        return $this->indexResponse($users);
+        return $this->indexResponse($goals);
     }
     public function show(int $id)
     {
@@ -45,5 +45,9 @@ class GoalController extends Controller
         $isDeleted = GoalRepository::delete($goal);
 
         $this->destroyResponse($isDeleted);
+    }
+
+    private function handleIndexData($data){
+        return GoalRepository::search($data->paginate ,$data->start ??null , $data->end??null , $data->type??null , $data->title??null);
     }
 }

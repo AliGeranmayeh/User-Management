@@ -4,6 +4,7 @@ namespace App\Http\Requests\Goal;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\User;
+use Morilog\Jalali\CalendarUtils;
 
 class CreateGoalRequest extends FormRequest
 {
@@ -32,6 +33,15 @@ class CreateGoalRequest extends FormRequest
         ];
     }
 
+    public function prepareForValidation()
+    {
+        $start_array = explode('-', (string) $this->start_date, PHP_INT_MAX);
+        $end_array = explode('-', (string) $this->do_date, PHP_INT_MAX);
+        $this->merge([
+            'start_date' => implode('-', CalendarUtils::toGregorian($start_array[0], $start_array[1], $start_array[2])),
+            'do_date' => implode('-', CalendarUtils::toGregorian($end_array[0], $end_array[1], $end_array[2])),
+        ]);
+    }
     public function withValidator($validator)
     {
         User::findOrFail($this->route('user'));

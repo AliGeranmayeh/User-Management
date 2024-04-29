@@ -55,4 +55,16 @@ class GoalRepository
     {
         return Goal::query()->paginate($paginate);
     }
+
+    public static function search(int $paginate ,$start = null, $end = null,$type = null , $title = null)
+    {
+        return Goal::query()
+        ->when($title,
+            fn($query) =>
+                $query->where("title", 'LIKE',"%$title%"))
+        ->when($type,
+            fn($query) =>
+                $query->whereBetween("$type",[$start,$end]))
+        ->paginate($paginate);
+    }
 }
