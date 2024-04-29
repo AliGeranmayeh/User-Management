@@ -21,7 +21,7 @@ class CreateGoalsTable extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date')->nullable();
             $table->dateTime('do_date');
-            $table->integer('point')->nullable();
+            $table->integer('point')->default(0);
             $table->timestamps();
         });
     }
